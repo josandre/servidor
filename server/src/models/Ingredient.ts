@@ -9,7 +9,6 @@ export class Ingrediente{
             Object.assign(this, partial);
         }
     }
-
 }
 
 const ingredientSchema = new Schema<Ingrediente>({
