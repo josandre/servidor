@@ -1,7 +1,8 @@
 import {MController} from "./controllers/MController";
-import express from "express";
+import express from 'express';
 import {DBManager} from "./db";
 import cors from 'cors';
+import {ingredient, Ingrediente} from "./models/Ingredient";
 
 export class App{
     private readonly app = express();
@@ -37,6 +38,21 @@ export class App{
         this.app.listen(this.port, () =>{
             return console.log(`server is listening on http://localhost:${this.port}`);
         })
+    }
+
+    public async createTest(){
+
+        const ingredientInserted1 = new ingredient({
+            name: "culantro",
+            cost: 1000
+        });
+        await ingredientInserted1.save();
+
+       const ingredientInserted2 = new ingredient({
+           name : "pollo",
+           cost: 2000
+       })
+        await  ingredientInserted2.save();
     }
 
 
