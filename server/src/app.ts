@@ -1,4 +1,4 @@
-import {MController} from "../controllers/MController";
+import {MController} from "./controllers/MController";
 import express from "express";
 import {DBManager} from "./db";
 import cors from 'cors';
