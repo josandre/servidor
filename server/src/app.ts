@@ -2,7 +2,8 @@ import {MController} from "./controllers/MController";
 import express from 'express';
 import {DBManager} from "./db";
 import cors from 'cors';
-import {ingredient, Ingrediente} from "./models/Ingredient";
+const queries = require("./schemas/ingredientSchema");
+import {graphqlHTTP} from "express-graphql";
 
 export class App{
     private readonly app = express();
@@ -38,22 +39,14 @@ export class App{
         this.app.listen(this.port, () =>{
             return console.log(`server is listening on http://localhost:${this.port}`);
         })
+
+        this.app.use('/graphql', graphqlHTTP({
+            schema: queries,
+            graphiql: true
+        }))
     }
 
-    public async createTest(){
 
-        const ingredientInserted1 = new ingredient({
-            name: "culantro",
-            cost: 1000
-        });
-        await ingredientInserted1.save();
-
-       const ingredientInserted2 = new ingredient({
-           name : "pollo",
-           cost: 2000
-       })
-        await  ingredientInserted2.save();
-    }
 
 
 }
