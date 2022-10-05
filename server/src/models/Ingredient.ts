@@ -21,7 +21,6 @@ const ingredientSchema = new Schema<Ingrediente>({
         required: true
 
     }
-
 })
 
 export const ingredient = model<Ingrediente>("Ingredient", ingredientSchema);

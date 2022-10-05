@@ -10,16 +10,10 @@ const cors_1 = __importDefault(require("cors"));
 const queries = require("./schemas/ingredientSchema");
 const express_graphql_1 = require("express-graphql");
 class App {
-    constructor(controllers, port, connectionString) {
+    constructor(port, connectionString) {
         this.app = (0, express_1.default)();
         this.port = port;
         this.connectionString = connectionString;
-        this.initializeRoutes(controllers);
-    }
-    initializeRoutes(controllers) {
-        controllers.forEach((controller) => {
-            this.app.use(`/api/${controller.route}`, controller.router);
-        });
     }
     start() {
         const dbManager = new db_1.DBManager(this.connectionString);

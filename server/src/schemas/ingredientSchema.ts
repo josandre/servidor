@@ -19,8 +19,8 @@ const IngredientType = new GraphQLObjectType({
     description: 'This represents an ingredient',
     fields: () => ({
         name: {type: GraphQLNonNull(GraphQLString)},
-        cost: {type: GraphQLNonNull(GraphQLInt)}
-
+        cost: {type: GraphQLNonNull(GraphQLInt)},
+        _id:{type: GraphQLID}
     })
 })
 
@@ -32,7 +32,6 @@ const RootQueryType = new GraphQLObjectType({
             type: IngredientType,
             args: {id:{type: GraphQLID}},
             resolve(parent, args){
-
                 return ingredient.findById(args.id);
             }
         },
@@ -62,6 +61,32 @@ const Mutation = new GraphQLObjectType({
                 });
 
                 return ingredientCreated.save();
+            }
+        },
+        deleteIngredient:{
+            type: IngredientType,
+            args:{id:{type: GraphQLID}},
+            resolve(parent, args){
+                 return ingredient.findByIdAndDelete(args.id)
+            }
+
+        },
+
+        updateIngredient:{
+            type: IngredientType,
+            args:{
+                id:{type: GraphQLID},
+                name:{type: GraphQLString},
+                cost:{type: GraphQLInt}
+            },
+            resolve(parent, args){
+
+               return ingredient.findByIdAndUpdate(args.id,{
+                    name: args.name,
+                    cost: args.cost
+               },{
+                   new: true
+               });
             }
         }
     }
